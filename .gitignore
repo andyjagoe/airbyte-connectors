@@ -6,6 +6,7 @@ acceptance_tests_logs/
 .vscode/
 .idea/
 
+.env
 .DS_Store
 acceptance-test-*.log
 *.code-workspace
