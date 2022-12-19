@@ -128,16 +128,15 @@ export class Web3Analytics {
     return false;
   }
 
-  async *getTrackingEvents(
-    did: string,
-    lastUpdatedAt?: string
-  ): AsyncGenerator<Event> {
+  async loadFromGraphQL(did: string, pageSize = 100, cursor) {
     const res: any = await this.composedb.executeQuery(`
       query {
         node (id: "${did}") {
           id  
           ... on CeramicAccount {
-            eventList(last:1000) {
+            eventList(first: ${pageSize} ${
+      cursor ? ` after: "${cursor}"` : ''
+    }) {
               edges {
                 node {
                   id
@@ -162,57 +161,78 @@ export class Web3Analytics {
                   type
                   userId
                 }
+                cursor
+              }
+              pageInfo {
+                endCursor
+                hasNextPage
               }
             }
           }
         }
       }    
     `);
-    //TODO: Handle paging
+    return res.data;
+  }
 
-    if (!res) return;
-    if (res.data.node.eventList.edges.length === 0) return;
+  cleanPayload(node: any) {
+    const payload = {
+      id: node.id,
+      app_id: node.app_id,
+      did: node.did,
+      created_at: node.created_at,
+      updated_at: node.updated_at,
+      raw_payload: node.raw_payload,
+    } as any;
+    if (node.anonymousId) payload.anonymousId = node.anonymousId;
+    if (node.event) payload.event = node.event;
+    if (node.meta_ts) payload.meta_ts = node.meta_ts;
+    if (node.meta_rid) payload.meta_rid = node.meta_rid;
+    if (node.properties_url) payload.properties_url = node.properties_url;
+    if (node.properties_hash) payload.properties_hash = node.properties_hash;
+    if (node.properties_path) payload.properties_path = node.properties_path;
+    if (node.properties_title) payload.properties_title = node.properties_title;
+    if (node.properties_referrer)
+      payload.properties_referrer = node.properties_referrer;
+    if (node.properties_search)
+      payload.properties_search = node.properties_search;
+    if (node.properties_width) payload.properties_width = node.properties_width;
+    if (node.properties_height)
+      payload.properties_height = node.properties_height;
+    if (node.traits_email) payload.traits_email = node.traits_email;
+    if (node.type) payload.type = node.type;
+    if (node.userId) payload.userId = node.userId;
 
-    for await (const {node} of res.data.node.eventList.edges) {
-      console.log(node.updated_at);
+    return payload;
+  }
 
-      const startTime = new Date(lastUpdatedAt ?? 0);
-      if (node.updated_at > startTime) {
-        const payload = {
-          id: node.id,
-          app_id: node.app_id,
-          did: node.did,
-          created_at: node.created_at,
-          updated_at: node.updated_at,
-          raw_payload: node.raw_payload,
-        } as any;
-        if (node.anonymousId) payload.anonymousId = node.anonymousId;
-        if (node.event) payload.event = node.event;
-        if (node.meta_ts) payload.meta_ts = node.meta_ts;
-        if (node.meta_rid) payload.meta_rid = node.meta_rid;
-        if (node.properties_url) payload.properties_url = node.properties_url;
-        if (node.properties_hash)
-          payload.properties_hash = node.properties_hash;
-        if (node.properties_path)
-          payload.properties_path = node.properties_path;
-        if (node.properties_title)
-          payload.properties_title = node.properties_title;
-        if (node.properties_referrer)
-          payload.properties_referrer = node.properties_referrer;
-        if (node.properties_search)
-          payload.properties_search = node.properties_search;
-        if (node.properties_width)
-          payload.properties_width = node.properties_width;
-        if (node.properties_height)
-          payload.properties_height = node.properties_height;
-        if (node.traits_email) payload.traits_email = node.traits_email;
-        if (node.type) payload.type = node.type;
-        if (node.userId) payload.userId = node.userId;
-
-        //console.log(payload);
-        yield payload as any;
+  async *getTrackingEvents(
+    did: string,
+    lastUpdatedAt?: string
+  ): AsyncGenerator<Event> {
+    const pageSize = 500;
+    let cursor = null;
+    let moreResults = true;
+    let count = 0;
+    while (moreResults) {
+      // TODO: use filter to get events > lastUpdatedAt once composedb supports
+      const data: any = await this.loadFromGraphQL(did, pageSize, cursor);
+      for (const {node} of data.node.eventList.edges) {
+        const startTime = new Date(lastUpdatedAt ?? 0);
+        if (node.updated_at > startTime) {
+          const payload = this.cleanPayload(node);
+          count++;
+          yield payload as any;
+        }
+      }
+      if (data?.node.eventList.pageInfo?.hasNextPage) {
+        cursor = data.node.eventList.edges.slice(-1)[0].cursor;
+      } else {
+        moreResults = false;
       }
     }
+
+    if (count > 0) console.log(`Processed ${count} events for ${did}`);
   }
 
   async *getEvents(lastUpdatedAt?: string): AsyncGenerator<Event> {
