@@ -1,4 +1,5 @@
 FROM node:16-alpine
+RUN apk add --no-cache coreutils
 
 WORKDIR /home/node/airbyte
 
@@ -10,7 +11,7 @@ COPY ./sources ./sources
 COPY ./destinations ./destinations
 
 RUN apk add --no-cache --virtual .gyp python3 make g++ \
-    && npm install -g lerna tsc
+    && npm install -g lerna tsc ts-node
 RUN lerna bootstrap --hoist
 
 ARG version
@@ -26,7 +27,7 @@ ARG path
 RUN test -n "$path" || (echo "'path' argument is not set, e.g --build-arg path=destinations/airbyte-faros-destination" && false)
 ENV CONNECTOR_PATH $path
 
-RUN ln -s "/home/node/airbyte/$CONNECTOR_PATH/bin/main" "/home/node/airbyte/main"
+RUN ln -s "/home/node/airbyte/$CONNECTOR_PATH/bin/main.mjs" "/home/node/airbyte/main"
 
 ENV AIRBYTE_ENTRYPOINT "/home/node/airbyte/main"
 ENTRYPOINT ["/home/node/airbyte/main"]

@@ -1,0 +1,79 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Event",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "app_id": {
+        "type": "string",
+        "title": "app_id"
+      },  
+      "did": {
+        "type": "string"
+      },
+      "raw_payload": {
+        "type": ["string", "null"]
+      },
+      "created_at": {
+        "type": "string", 
+        "format": "date-time", 
+        "airbyte_type": "timestamp_with_timezone"
+      },
+      "updated_at": {
+        "type": "integer", 
+        "title": "updated_at"
+      },
+      "anonymousId": {
+        "type": ["string", "null"],
+        "title": "anonymousId"
+      },
+      "event": {
+        "type": ["string", "null"],
+        "title": "event"
+      },
+      "meta_ts": {
+        "type": ["string", "null"], 
+        "airbyte_type": "big_integer"
+      },
+      "meta_rid": {
+        "type": ["string", "null"]
+      },  
+      "properties_url": {
+        "type": ["string", "null"]
+      },
+      "properties_hash": {
+        "type": ["string", "null"]
+      },
+      "properties_path": {
+        "type": ["string", "null"]
+      },
+      "properties_title": {
+        "type": ["string", "null"]
+      },
+      "properties_width": {
+        "type": ["integer", "null"]
+      },
+      "properties_height": {
+        "type": ["integer", "null"]
+      },
+      "properties_search": {
+        "type": ["string", "null"]
+      },
+      "properties_referrer": {
+        "type": ["string", "null"]
+      },
+      "traits_email": {
+        "type": ["string", "null"]
+      },    
+      "type": {
+          "type": ["string", "null"],
+          "title": "type"
+        },
+      "userId": {
+          "type": ["string", "null"],
+          "title": "userId"
+      }    
+    }
+}
