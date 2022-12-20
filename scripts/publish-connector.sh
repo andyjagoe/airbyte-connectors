@@ -11,7 +11,7 @@ connector_version=$2
 
 [[ "${connector_path}" != */ ]] && connector_path="${connector_path}/"
 
-org="farosai"
+org="web3analytics"
 connector_name="$(echo $connector_path | cut -f2 -d'/')"
 prefix="airbyte-"
 if [[ "$connector_name" = $prefix* ]]; then
