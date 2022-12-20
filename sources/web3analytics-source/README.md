@@ -16,9 +16,9 @@ Connectors must be published as docker containers, and must pass a source accept
 
 You must publish a new source connector to Docker before you can use it. To do this, make sure you are logged in to your Docker account, edit the publish script for your account, then run from the root of [https://github.com/andyjagoe/airbyte-connectors-esm](https://github.com/andyjagoe/airbyte-connectors-esm):
 
-```./scripts/publish-connector.sh sources/web3analytics-source```
+```./scripts/publish-connector.sh sources/web3analytics-source <version>```
 
-This compiles a docker build using the platform you're publishing from since we have not set up dual architecture buidls yet. To build for AMD64, publish from an AMD64 machine. To build for arm64, publish from an arm64 machine.
+This compiles a docker build using the platform you're publishing from since we have not set up dual architecture builds yet. To build for AMD64, publish from an AMD64 machine. To build for arm64, publish from an arm64 machine.
 
 ## Use
 
