@@ -74,6 +74,99 @@
       "userId": {
           "type": ["string", "null"],
           "title": "userId"
-      }    
+      },
+      "geo_autonomousSystemNumber": {
+        "type": ["integer", "null"]
+      },
+      "geo_autonomousSystemOrganization": {
+        "type": ["string", "null"]
+      },
+      "geo_city_geonameId": {
+        "type": ["integer", "null"]
+      },
+      "geo_city_name": {
+        "type": ["string", "null"]
+      },
+      "geo_continent_code": {
+        "type": ["string", "null"]
+      },
+      "geo_continent_geonameId": {
+        "type": ["integer", "null"]
+      },
+      "geo_continent_name": {
+        "type": ["string", "null"]
+      },
+      "geo_country_geonameId": {
+        "type": ["integer", "null"]
+      },
+      "geo_country_isoCode": {
+        "type": ["string", "null"]
+      },
+      "geo_country_name": {
+        "type": ["string", "null"]
+      },
+      "geo_location_accuracyRadius": {
+        "type": ["integer", "null"]
+      },
+      "geo_location_latitude": {
+        "type": ["number", "null"]
+      },
+      "geo_location_longitude": {
+        "type": ["number", "null"]
+      },
+      "geo_location_metroCode": {
+        "type": ["integer", "null"]
+      },
+      "geo_location_timeZone": {
+        "type": ["string", "null"]
+      },
+      "geo_postal": {
+        "type": ["string", "null"]
+      },
+      "geo_registeredCountry_geonameId": {
+        "type": ["integer", "null"]
+      },
+      "geo_registeredCountry_isoCode": {
+        "type": ["string", "null"]
+      },
+      "geo_registeredCountry_name": {
+        "type": ["string", "null"]
+      },
+      "geo_subdivision_geonameId": {
+        "type": ["integer", "null"]
+      },
+      "geo_subdivision_isoCode": {
+        "type": ["string", "null"]
+      },
+      "geo_subdivision_name": {
+        "type": ["string", "null"]
+      },
+      "geo_traits_isAnonymous": {
+        "type": ["boolean", "null"]
+      },
+      "geo_traits_isAnonymousProxy": {
+        "type": ["boolean", "null"]
+      },
+      "geo_traits_isAnonymousVpn": {
+        "type": ["boolean", "null"]
+      },
+      "geo_traits_isHostingProvider": {
+        "type": ["boolean", "null"]
+      },
+      "geo_traits_isLegitimateProxy": {
+        "type": ["boolean", "null"]
+      },
+      "geo_traits_isPublicProxy": {
+        "type": ["boolean", "null"]
+      },
+      "geo_traits_isResidentialProxy": {
+        "type": ["boolean", "null"]
+      },
+      "geo_traits_isSatelliteProvider": {
+        "type": ["boolean", "null"]
+      },
+      "geo_traits_isTorExitNode": {
+        "type": ["boolean", "null"]
+      }
     }
 }

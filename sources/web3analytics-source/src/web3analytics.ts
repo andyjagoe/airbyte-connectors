@@ -160,6 +160,37 @@ export class Web3Analytics {
                   traits_email
                   type
                   userId
+                  geo_autonomousSystemNumber
+                  geo_autonomousSystemOrganization
+                  geo_city_geonameId
+                  geo_city_name
+                  geo_continent_code
+                  geo_continent_geonameId
+                  geo_continent_name
+                  geo_country_geonameId
+                  geo_country_isoCode
+                  geo_country_name
+                  geo_location_accuracyRadius
+                  geo_location_latitude
+                  geo_location_longitude
+                  geo_location_metroCode
+                  geo_location_timeZone
+                  geo_postal
+                  geo_registeredCountry_geonameId
+                  geo_registeredCountry_isoCode
+                  geo_registeredCountry_name
+                  geo_subdivision_geonameId
+                  geo_subdivision_isoCode
+                  geo_subdivision_name
+                  geo_traits_isAnonymous
+                  geo_traits_isAnonymousProxy
+                  geo_traits_isAnonymousVpn
+                  geo_traits_isHostingProvider
+                  geo_traits_isLegitimateProxy
+                  geo_traits_isPublicProxy
+                  geo_traits_isResidentialProxy
+                  geo_traits_isSatelliteProvider
+                  geo_traits_isTorExitNode
                 }
                 cursor
               }
@@ -175,7 +206,8 @@ export class Web3Analytics {
     return res.data;
   }
 
-  cleanPayload(node: any) {
+  cleanPayload(data: any) {
+    const node = JSON.parse(JSON.stringify(data)); // convert to standard Object
     const payload = {
       id: node.id,
       app_id: node.app_id,
@@ -202,6 +234,86 @@ export class Web3Analytics {
     if (node.traits_email) payload.traits_email = node.traits_email;
     if (node.type) payload.type = node.type;
     if (node.userId) payload.userId = node.userId;
+    if (node.geo_autonomousSystemNumber)
+      payload.geo_autonomousSystemNumber = node.geo_autonomousSystemNumber;
+    if (node.geo_autonomousSystemOrganization)
+      payload.geo_autonomousSystemOrganization =
+        node.geo_autonomousSystemOrganization;
+    if (node.geo_city_geonameId)
+      payload.geo_city_geonameId = node.geo_city_geonameId;
+    if (node.geo_city_name) payload.geo_city_name = node.geo_city_name;
+    if (node.geo_continent_code)
+      payload.geo_continent_code = node.geo_continent_code;
+    if (node.geo_continent_geonameId)
+      payload.geo_continent_geonameId = node.geo_continent_geonameId;
+    if (node.geo_continent_name)
+      payload.geo_continent_name = node.geo_continent_name;
+    if (node.geo_country_geonameId)
+      payload.geo_country_geonameId = node.geo_country_geonameId;
+    if (node.geo_country_isoCode)
+      payload.geo_country_isoCode = node.geo_country_isoCode;
+    if (node.geo_country_name) payload.geo_country_name = node.geo_country_name;
+    if (node.geo_location_accuracyRadius)
+      payload.geo_location_accuracyRadius = node.geo_location_accuracyRadius;
+    if (node.geo_location_latitude)
+      payload.geo_location_latitude = node.geo_location_latitude;
+    if (node.geo_location_longitude)
+      payload.geo_location_longitude = node.geo_location_longitude;
+    if (node.geo_location_metroCode)
+      payload.geo_location_metroCode = node.geo_location_metroCode;
+    if (node.geo_location_timeZone)
+      payload.geo_location_timeZone = node.geo_location_timeZone;
+    if (node.geo_postal) payload.geo_postal = node.geo_postal;
+    if (node.geo_registeredCountry_geonameId)
+      payload.geo_registeredCountry_geonameId =
+        node.geo_registeredCountry_geonameId;
+    if (node.geo_registeredCountry_isoCode)
+      payload.geo_registeredCountry_isoCode =
+        node.geo_registeredCountry_isoCode;
+    if (node.geo_registeredCountry_name)
+      payload.geo_registeredCountry_name = node.geo_registeredCountry_name;
+    if (node.geo_subdivision_geonameId)
+      payload.geo_subdivision_geonameId = node.geo_subdivision_geonameId;
+    if (node.geo_subdivision_isoCode)
+      payload.geo_subdivision_isoCode = node.geo_subdivision_isoCode;
+    if (node.geo_subdivision_name)
+      payload.geo_subdivision_name = node.geo_subdivision_name;
+    if (Object.prototype.hasOwnProperty.call(node, 'geo_traits_isAnonymous'))
+      payload.geo_traits_isAnonymous = node.geo_traits_isAnonymous;
+    if (
+      Object.prototype.hasOwnProperty.call(node, 'geo_traits_isAnonymousProxy')
+    )
+      payload.geo_traits_isAnonymousProxy = node.geo_traits_isAnonymousProxy;
+    if (Object.prototype.hasOwnProperty.call(node, 'geo_traits_isAnonymousVpn'))
+      payload.geo_traits_isAnonymousVpn = node.geo_traits_isAnonymousVpn;
+    if (
+      Object.prototype.hasOwnProperty.call(node, 'geo_traits_isHostingProvider')
+    )
+      payload.geo_traits_isHostingProvider = node.geo_traits_isHostingProvider;
+    if (
+      Object.prototype.hasOwnProperty.call(node, 'geo_traits_isLegitimateProxy')
+    )
+      payload.geo_traits_isLegitimateProxy = node.geo_traits_isLegitimateProxy;
+    if (Object.prototype.hasOwnProperty.call(node, 'geo_traits_isPublicProxy'))
+      payload.geo_traits_isPublicProxy = node.geo_traits_isPublicProxy;
+    if (
+      Object.prototype.hasOwnProperty.call(
+        node,
+        'geo_traits_isResidentialProxy'
+      )
+    )
+      payload.geo_traits_isResidentialProxy =
+        node.geo_traits_isResidentialProxy;
+    if (
+      Object.prototype.hasOwnProperty.call(
+        node,
+        'geo_traits_isSatelliteProvider'
+      )
+    )
+      payload.geo_traits_isSatelliteProvider =
+        node.geo_traits_isSatelliteProvider;
+    if (Object.prototype.hasOwnProperty.call(node, 'geo_traits_isTorExitNode'))
+      payload.geo_traits_isTorExitNode = node.geo_traits_isTorExitNode;
 
     return payload;
   }
